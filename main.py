@@ -6,6 +6,8 @@ from twilio.twiml.voice_response import VoiceResponse, Dial
 from dotenv import load_dotenv
 import os
 import pprint as p
+from twilio.twiml.voice_response import VoiceResponse
+
 
 load_dotenv()
 
@@ -14,6 +16,9 @@ api_key = os.environ['TWILIO_API_KEY_SID']
 api_key_secret = os.environ['TWILIO_API_KEY_SECRET']
 twiml_app_sid = os.environ['TWIML_APP_SID']
 twilio_number = os.environ['TWILIO_NUMBER']
+auth_token = os.environ['TWILIO_AUTH_TOKEN']
+
+
 
 app = Flask(__name__)
 
@@ -65,7 +70,15 @@ def call():
 
     return ''
 
-'''@app.route("/record", methods=['GET', 'POST'])
+
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=3000, debug=True)
+
+'''
+@app.route("/record", methods=['GET', 'POST'])
+
 def record():
     """Returns TwiML which prompts the caller to record a message"""
     # Start our TwiML response
@@ -80,8 +93,4 @@ def record():
     # End the call with <Hangup>
     response.hangup()
 
-    return str(response)
-'''
-
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=3000, debug=True)
+    return str(response)'''
