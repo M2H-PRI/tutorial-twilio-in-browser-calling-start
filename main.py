@@ -8,7 +8,6 @@ import os
 import pprint as p
 from twilio.twiml.voice_response import VoiceResponse
 
-
 load_dotenv()
 
 account_sid = os.environ['TWILIO_ACCOUNT_SID']
@@ -19,9 +18,7 @@ twilio_number = os.environ['TWILIO_NUMBER']
 auth_token = os.environ['TWILIO_AUTH_TOKEN']
 
 
-
 app = Flask(__name__)
-
 
 @app.route('/')
 def home():
@@ -40,7 +37,9 @@ def get_token():
 
     voice_grant = VoiceGrant(
         outgoing_application_sid=outgoing_application_sid,
-        incoming_allow=True,
+        incoming_allow=True
+
+
     )
     access_token.add_grant(voice_grant)
 
@@ -55,22 +54,27 @@ def get_token():
 def call():
     p.pprint(request.form)
     response = VoiceResponse()
-    dial = Dial(callerId=twilio_number)
+
+    #response.record(record='true')
+    dial = Dial(callerId=twilio_number,record='true')
+
 
     if 'To' in request.form and request.form['To'] != twilio_number:
         print('outbound call')
         dial.number(request.form['To'])
+
     else:
         print('incoming call')
         caller = request.form['Caller']
         dial = Dial(callerId=caller)
         dial.client(twilio_number)
 
+
+
     return str(response.append(dial))
 
+
     return ''
-
-
 
 
 if __name__ == "__main__":
@@ -88,9 +92,10 @@ def record():
     response.say('Hello. Please leave a message after the beep.')
 
     # Use <Record> to record the caller's message
-    response.record()
+    response.record(record=true)
 
     # End the call with <Hangup>
     response.hangup()
 
-    return str(response)'''
+    return str(response)
+'''

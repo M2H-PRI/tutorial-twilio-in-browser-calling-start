@@ -1,4 +1,38 @@
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
 import requests
 from flask import Flask, request
 from twilio.twiml.voice_response import Record, VoiceResponse
@@ -18,7 +52,7 @@ def recording_complete():
 
     return str(response)
 
-'''
+
 @app.route("/record", methods=['GET', 'POST'])
 def record():
     """Returns TwiML which prompts the caller to record a message"""
